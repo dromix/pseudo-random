@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.ts",
     "prettier": "prettier --config .prettierrc --write \"src/**/*.{json,ts}\"",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
     "typecheck": "tsc --project ./ --noEmit"
