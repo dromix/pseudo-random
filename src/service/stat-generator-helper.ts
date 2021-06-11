@@ -1,5 +1,5 @@
 import { performance } from 'perf_hooks';
-import { IProbabilityStat, IStats } from '../src/interface';
+import { IProbabilityStat, IStats } from '../interface';
 
 export class StatisticGenerator {
   private initialValue: boolean;

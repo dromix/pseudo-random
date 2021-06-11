@@ -1,6 +1,6 @@
 import express from 'express';
+import { IProbabilityRequest } from '../interface';
 import { StatisticGenerator } from '../service/stat-generator-helper';
-import { IProbabilityRequest } from '../src/interface';
 
 const statRouter = express.Router();
 statRouter.get('/', (req: IProbabilityRequest, res) => {
