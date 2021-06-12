@@ -5,7 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.ts",
+    "postinstall": "tsc",
+    "build": "tsc --project ./",
+    "start": "node build/index.js",
     "prettier": "prettier --config .prettierrc --write \"src/**/*.{json,ts}\"",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
     "typecheck": "tsc --project ./ --noEmit"
@@ -19,9 +21,11 @@
     }
   },
   "dependencies": {
+    "bunyan": "^1.8.15",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.6",
     "@types/express": "^4.17.12",
     "env-cmd": "^10.1.0",
     "eslint": "^7.28.0",

@@ -6,7 +6,7 @@ export interface IProbabilityRequest {
   };
 }
 
-export interface IProbabilityStat {
+export interface IProbabilityStatResponse {
   result: boolean;
   stats: IStats;
   duration: number;

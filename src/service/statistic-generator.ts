@@ -1,5 +1,5 @@
 import { performance } from 'perf_hooks';
-import { IProbabilityStat, IStats } from '../src/interface';
+import { IProbabilityStatResponse, IStats } from '../interface';
 
 export class StatisticGenerator {
   private initialValue: boolean;
@@ -17,7 +17,7 @@ export class StatisticGenerator {
    * @returns statistic of pseudo probability, count of true \ false values, time of function execution
    * or title of error if something went wrong
    */
-  generateProbabilityStat(): IProbabilityStat | string {
+  generateProbabilityStat(): IProbabilityStatResponse | string {
     const error = this.validateInitialProps();
     if (error) return error;
 
