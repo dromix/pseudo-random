@@ -1,3 +1,0 @@
-{"name":"logger","hostname":"DESKTOP-LQMTCSR","pid":19820,"level":30,"msg":"query { probability: '.5', value: 'true', iterations: '122' }","time":"2021-06-11T16:08:41.117Z","v":0}
-{"name":"logger","hostname":"DESKTOP-LQMTCSR","pid":21668,"level":30,"msg":"query { probability: '.5', value: 'true', iterations: '122' }","time":"2021-06-11T16:10:19.938Z","v":0}
-{"name":"logger","hostname":"DESKTOP-LQMTCSR","pid":21668,"level":30,"msg":"response {\n  result: true,\n  stats: {\n    number_of_true: 57,\n    number_of_false: 65,\n    number_of_iterations: 122\n  },\n  duration: 0.21870017051696777\n}","time":"2021-06-11T16:10:19.940Z","v":0}
