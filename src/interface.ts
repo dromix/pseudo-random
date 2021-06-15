@@ -1,8 +1,8 @@
 export interface IProbabilityRequest {
-  query: {
-    probability: string;
-    value: string;
-    iterations?: string;
+  body: {
+    probability: number;
+    value: boolean;
+    iterations?: number;
   };
 }
 

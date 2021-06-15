@@ -1,19 +1,34 @@
 import express from 'express';
+import { validationResult } from 'express-validator';
 import { IProbabilityRequest } from '../interface';
-import { log } from '../service/logger';
-import { StatisticGenerator } from '../service/statistic-generator';
+import { logger } from '../service/logger';
+import { statGeneratorService } from '../service/stat-generator';
+import { validatorService } from '../service/validator';
 
 const statRouter = express.Router();
-statRouter.get('/', (req: IProbabilityRequest, res) => {
-  const { probability, value, iterations } = req.query;
-  log.info('query', { ...req.query });
+statRouter.post(
+  '/',
+  validatorService.validateInitialParams(),
+  (req: IProbabilityRequest, res: express.Response) => {
+    logger.info('body', { ...req.body });
+    const errors = validationResult(req);
 
-  // TODO Extract logic to reposity if DB appears
-  const statGenerator = new StatisticGenerator(probability, value, iterations);
-  const statistics = statGenerator.generateProbabilityStat();
+    if (!errors.isEmpty()) {
+      res.json(errors);
 
-  log.info('response', statistics);
-  res.send(statistics);
-});
+      return;
+    }
+
+    const { probability = 0, value = false, iterations = 1000 } = req.body;
+    const statistics = statGeneratorService.generateProbabilityStat(
+      probability,
+      value,
+      iterations
+    );
+
+    logger.info('response', statistics);
+    res.json(statistics);
+  }
+);
 
 export { statRouter };

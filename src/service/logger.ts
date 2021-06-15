@@ -1,49 +1,58 @@
-import bunyan, { LogLevel } from 'bunyan';
+import { default as bunyan, default as Logger, LogLevel } from 'bunyan';
 import RotatingFileStream from 'bunyan-rotating-file-stream';
 import fs from 'fs';
+import path from 'path';
 
-initializeLogFile();
+class LoggerService {
+  private logDirectory: string;
+  private logFile: string;
 
-const level = (process.env.NODE_LOGGING_LEVEL || 'info') as LogLevel;
-
-const log = bunyan.createLogger({
-  name: 'logger',
-  streams: [
-    {
-      level,
-      stream: process.stdout,
-    },
-    {
-      stream: new RotatingFileStream({
-        path: '/app/dist/logs/test.log',
-        period: '1d',
-        totalFiles: 10,
-        rotateExisting: true,
-        threshold: '10m',
-        totalSize: '20m',
-        gzip: true,
-      }),
-    },
-  ],
-});
-
-function initializeLogFile() {
-  // Heroku doesn't provide an opportunity to store logs in /var/log/, by this
-  // reason was decided to put logs into dist/logs
-
-  const dir = '/app/dist/logs/';
-
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
+  constructor(logFileName = 'logs.log') {
+    this.logDirectory = path.join(process.env.LOG_DIR || 'logs');
+    this.logFile = `${this.logDirectory}${logFileName}`;
   }
 
-  fs.appendFile('/app/dist/logs/test.log', '', (error) => {
-    if (error) {
-      throw error;
+  initializeLogger(): Logger {
+    this.initializeLogFile();
+
+    const level = (process.env.NODE_LOGGING_LEVEL || 'info') as LogLevel;
+
+    return bunyan.createLogger({
+      name: 'logger',
+      streams: [
+        {
+          level,
+          stream: process.stdout,
+        },
+        {
+          stream: new RotatingFileStream({
+            path: this.logFile,
+            period: '1d',
+            totalFiles: 10,
+            rotateExisting: true,
+            threshold: '10m',
+            totalSize: '20m',
+            gzip: true,
+          }),
+        },
+      ],
+    });
+  }
+
+  private initializeLogFile(): void {
+    console.log(this.logDirectory, this.logFile);
+    if (!fs.existsSync(this.logDirectory)) {
+      fs.mkdirSync(this.logDirectory, { recursive: true });
     }
 
-    console.log('Log file is initialized');
-  });
+    fs.appendFile(this.logFile, '', (error) => {
+      if (error) {
+        throw error;
+      }
+
+      console.log(`File ${this.logFile} is initialized`);
+    });
+  }
 }
 
-export { log };
+export const logger = new LoggerService().initializeLogger();

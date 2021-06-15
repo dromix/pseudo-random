@@ -8,15 +8,13 @@
     "build": "tsc --project ./",
     "start": "node dist/index.js",
     "prettier": "prettier --config .prettierrc --write \"src/**/*.{json,ts}\"",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
-    "typecheck": "tsc --project ./ --noEmit"
+    "dev": "env-cmd -f ./config/local.env nodemon src/index.ts"
   },
   "author": "dromix",
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier",
-      "pre-push": "npm run typecheck"
+      "pre-commit": "npm run prettier"
     }
   },
   "engines": {
@@ -26,7 +24,8 @@
   "dependencies": {
     "bunyan": "^1.8.15",
     "bunyan-rotating-file-stream": "^2.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.6",

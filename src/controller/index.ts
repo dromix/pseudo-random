@@ -4,4 +4,5 @@ import { statRouter } from './stat';
 const router = express.Router();
 
 router.use('/stat', statRouter);
-export default router;
+
+export { router };
