@@ -2,9 +2,13 @@
 
 Test project with one crud operation generates the statistics according to initial config
 
+### How to install
+git clone https://github.com/dromix/pseudo-random.git  
+npm i && npm run dev
+
 ### Initial params
 
-![image](https://user-images.githubusercontent.com/37833861/121705304-2f97e900-cadd-11eb-8cc1-cfc6aa060e2d.png)
+![image](https://user-images.githubusercontent.com/37833861/122102757-727bf880-ce1e-11eb-9829-49fe193e499c.png)
 
 probability - number between 0 and 1 describes the probability of occurrence of a value; <br>
 value - true \ false value that appears with a given probability; <br>
@@ -18,7 +22,12 @@ Gives the result of the function at first execution, how many times we received 
 
 ### Endpoint
 
-https://test-pseudo-random.herokuapp.com/stat
+POST https://test-pseudo-random.herokuapp.com/stat 
 
-For example, you can use GET request to:
-https://test-pseudo-random.herokuapp.com/stat?probability=0.8&value=false&iterations=999999
+body {  
+    "probability": 0.5,  
+    "value": true,  
+    "iterations": 1000  
+}
+
+
